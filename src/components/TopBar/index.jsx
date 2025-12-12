@@ -1,21 +1,60 @@
-import React from "react";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { AppBar, Toolbar, Typography, Box } from "@mui/material";
+import { useLocation, useParams } from "react-router-dom";
+import { getData, handleData } from "../../modelData/api.js";
 
 import "./styles.css";
 
 /**
- * Define TopBar, a React component of Project 4.
+ * Define TopBar, a React component.
  */
-function TopBar () {
-    return (
-      <AppBar className="topbar-appBar" position="absolute">
-        <Toolbar>
-          <Typography variant="h5" color="inherit">
-            This is the TopBar component
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    );
+function TopBar() {
+  const location = useLocation();
+  const [user, setUser] = useState("");
+  const [contextText, setContextText] = useState("");
+
+  async function updateContextText() {
+    const loc = location.pathname.split("/");
+    if (loc.length < 3) return;
+
+    const data = loc[1];
+    const params = loc[2];
+    const path = "https://s3n5xj-8081.csb.app/api/users/" + params;
+
+    try {
+      const userData = await getData(path);
+      setUser(userData);
+      if (data === "users") {
+        setContextText(`User: ${userData.first_name} ${userData.last_name}`);
+      } else if (data === "photos") {
+        setContextText(
+          `Photos of: ${userData.first_name} ${userData.last_name}`
+        );
+      } else {
+        setContextText("");
+      }
+    } catch (error) {
+      console.log("Error fetch user:", error);
+    }
+  }
+
+  useEffect(() => {
+    updateContextText();
+  }, [location]);
+
+  return (
+    <AppBar className="topbar-appBar" position="fixed">
+      <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h6" color="inherit">
+          Đỗ Đức Chính
+        </Typography>
+
+        <Typography variant="h6" color="inherit">
+          {contextText}
+        </Typography>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 export default TopBar;
