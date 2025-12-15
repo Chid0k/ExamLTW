@@ -46,16 +46,15 @@ const App = (props) => {
                 <Route
                   path="/users/:userId"
                   element={
-                    <ProtectedRoute>
-                      {" "}
-                      <UserDetail />{" "}
+                    <ProtectedRoute user={user}>
+                      <UserDetail />
                     </ProtectedRoute>
                   }
                 />
                 <Route
                   path="/photos/:userId"
                   element={
-                    <ProtectedRoute>
+                    <ProtectedRoute user={user}>
                       <UserPhotos />
                     </ProtectedRoute>
                   }
