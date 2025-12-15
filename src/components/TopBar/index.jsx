@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AppBar, Toolbar, Typography, Box } from "@mui/material";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { getData, handleData } from "../../modelData/api.js";
 
 import "./styles.css";
@@ -8,9 +8,8 @@ import "./styles.css";
 /**
  * Define TopBar, a React component.
  */
-function TopBar() {
+function TopBar({ st }) {
   const location = useLocation();
-  const [user, setUser] = useState("");
   const [contextText, setContextText] = useState("");
 
   async function updateContextText() {
@@ -23,9 +22,10 @@ function TopBar() {
 
     try {
       const userData = await getData(path);
-      setUser(userData);
       if (data === "users") {
-        setContextText(`User: ${userData.first_name} ${userData.last_name}`);
+        setContextText(
+          `Detail of User: ${userData.first_name} ${userData.last_name}`
+        );
       } else if (data === "photos") {
         setContextText(
           `Photos of: ${userData.first_name} ${userData.last_name}`
@@ -40,6 +40,7 @@ function TopBar() {
 
   useEffect(() => {
     updateContextText();
+    console.log("test: " + st);
   }, [location]);
 
   return (
@@ -51,6 +52,17 @@ function TopBar() {
 
         <Typography variant="h6" color="inherit">
           {contextText}
+        </Typography>
+
+        <Typography variant="h6" color="inherit">
+          {st == null ? (
+            <Link to="/login">Login</Link>
+          ) : (
+            <Typography variant="h6" color="inherit">
+              {"Hi: " + st.username + "   "}
+              <Link to="/logout">Logout</Link>
+            </Typography>
+          )}
         </Typography>
       </Toolbar>
     </AppBar>
