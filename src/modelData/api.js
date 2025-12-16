@@ -15,7 +15,7 @@ async function getData(url, cre = "omit") {
   }
 }
 
-async function handleData(url, cre = "omit", method, data) {
+async function handleData(url, method, data, cre = "omit") {
   try {
     const res = await fetch(url, {
       method: method,

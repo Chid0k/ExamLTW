@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import "./styles.css";
 import { useParams } from "react-router-dom";
 import { getData, handleData } from "../../modelData/api.js";
@@ -64,7 +58,7 @@ function UserPhotos() {
       viewP.push(
         <img
           src={
-            "https://s3n5xj-8081.csb.app/api/photos/photo/" + photo.file_name
+            "https://rk43xg-8081.csb.app/api/photos/photo/" + photo.file_name
           }
         ></img>
       );

@@ -59,7 +59,7 @@ function TopBar({ st }) {
             <Link to="/login">Login</Link>
           ) : (
             <Typography variant="h6" color="inherit">
-              {"Hi: " + st.username + "   "}
+              {"Hi: " + st.first_name + "   "}
               <Link to="/logout">Logout</Link>
             </Typography>
           )}
