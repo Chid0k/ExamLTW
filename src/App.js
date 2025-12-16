@@ -21,6 +21,7 @@ const App = (props) => {
 
   function ProtectedRoute({ user, children }) {
     if (!user) {
+      alert("401 Unauthorize");
       return <Navigate to="/login" replace />;
     }
     return children;

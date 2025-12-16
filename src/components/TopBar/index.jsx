@@ -47,7 +47,7 @@ function TopBar({ st }) {
     <AppBar className="topbar-appBar" position="fixed">
       <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h6" color="inherit">
-          Đỗ Đức Chính
+          <Link to="/users">{"Đỗ Đức Chính"}</Link>
         </Typography>
 
         <Typography variant="h6" color="inherit">

@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { getData, handleData } from "../../modelData/api.js";
 
@@ -16,6 +17,7 @@ import { getData, handleData } from "../../modelData/api.js";
 function UserList() {
   const [users, setUsers] = useState([]);
   const [status, setStatus] = useState("Loading...");
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData("https://rk43xg-8081.csb.app/api/users")
@@ -24,8 +26,8 @@ function UserList() {
         setStatus("OK");
       })
       .catch((err) => {
-        alert(err);
-        setStatus("Error");
+        setStatus("401 Unauthorize or Error");
+        navigate("/login");
       });
   }, []);
 
@@ -43,7 +45,7 @@ function UserList() {
         {users.map((item) => (
           <>
             <ListItem>
-              <Link to={"users/" + item._id}>
+              <Link to={"/users/" + item._id}>
                 <ListItemText primary={item.first_name} />{" "}
               </Link>
             </ListItem>
