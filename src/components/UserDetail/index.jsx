@@ -22,7 +22,7 @@ function UserDetail() {
 
   useEffect(() => {
     setStatus("Loading ...");
-    getData("https://s3n5xj-8081.csb.app/api/users/" + user.userId)
+    getData("https://rk43xg-8081.csb.app/api/users/" + user.userId)
       .then((data) => {
         setUserDetail(data);
         setStatus("OK");

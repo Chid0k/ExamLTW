@@ -18,7 +18,7 @@ function UserList() {
   const [status, setStatus] = useState("Loading...");
 
   useEffect(() => {
-    getData("https://s3n5xj-8081.csb.app/api/users")
+    getData("https://rk43xg-8081.csb.app/api/users")
       .then((data) => {
         setUsers(data);
         setStatus("OK");

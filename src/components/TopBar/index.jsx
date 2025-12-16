@@ -18,7 +18,7 @@ function TopBar({ st }) {
 
     const data = loc[1];
     const params = loc[2];
-    const path = "https://s3n5xj-8081.csb.app/api/users/" + params;
+    const path = "https://rk43xg-8081.csb.app/api/users/" + params;
 
     try {
       const userData = await getData(path);

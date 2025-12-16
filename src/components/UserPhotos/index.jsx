@@ -23,7 +23,7 @@ function UserPhotos() {
   useEffect(() => {
     setStatus("Loading ...");
     console.log(user.userId);
-    getData("https://s3n5xj-8081.csb.app/api/photos/" + user.userId)
+    getData("https://rk43xg-8081.csb.app/api/photos/" + user.userId)
       .then((data) => {
         setPhotos(data);
         setStatus("OK");
