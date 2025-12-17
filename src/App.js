@@ -1,5 +1,4 @@
 import "./App.css";
-
 import React from "react";
 import { useState } from "react";
 import { Grid, Typography, Paper } from "@mui/material";
@@ -9,19 +8,20 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-
 import TopBar from "./components/TopBar";
 import UserDetail from "./components/UserDetail";
 import UserList from "./components/UserList";
 import UserPhotos from "./components/UserPhotos";
 import { Login, Logout } from "./components/LoginRegister";
 
+// tạo biến toàn cục API sử dụng trong toàn bộ componet
+export const API = "https://yngg8z-8081.csb.app";
+
 const App = (props) => {
   const [user, setUser] = useState(null);
 
   function ProtectedRoute({ user, children }) {
     if (!user) {
-      alert("401 Unauthorize");
       return <Navigate to="/login" replace />;
     }
     return children;
@@ -37,7 +37,9 @@ const App = (props) => {
           <div className="main-topbar-buffer" />
           <Grid item sm={3}>
             <Paper className="main-grid-item">
-              <UserList />
+              <ProtectedRoute user={user}>
+                <UserList />{" "}
+              </ProtectedRoute>
             </Paper>
           </Grid>
 
@@ -61,7 +63,14 @@ const App = (props) => {
                   }
                 />
 
-                <Route path="/users" element={<UserList />} />
+                <Route
+                  path="/users"
+                  element={
+                    <ProtectedRoute user={user}>
+                      <UserList />{" "}
+                    </ProtectedRoute>
+                  }
+                />
 
                 <Route path="/login" element={<Login onLogin={setUser} />} />
                 <Route path="/logout" element={<Logout onLogout={setUser} />} />

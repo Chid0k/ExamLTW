@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { getData, handleData } from "../../modelData/api.js";
+import { API } from "../../App.js";
 
 /**
  * Define UserList, a React component of Project 4.
@@ -20,15 +21,21 @@ function UserList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getData("https://rk43xg-8081.csb.app/api/users")
+    fetch(API + "/api/users", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        return response.json();
+      })
       .then((data) => {
         setUsers(data);
         setStatus("OK");
       })
-      .catch((err) => {
-        setStatus("401 Unauthorize or Error");
-        navigate("/login");
-      });
+      .catch((err) => setStatus("Error: " + err.message));
   }, []);
 
   if (status != "OK") return <Typography variant="body1">{status}</Typography>;

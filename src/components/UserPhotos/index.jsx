@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { getData, handleData } from "../../modelData/api.js";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API } from "../../App.js";
 
 /**
  * Define UserPhotos, a React component of Project 4.
@@ -17,7 +18,7 @@ function UserPhotos() {
   useEffect(() => {
     setStatus("Loading ...");
     console.log(user.userId);
-    getData("https://rk43xg-8081.csb.app/api/photos/" + user.userId)
+    getData(API + "/api/photos/" + user.userId)
       .then((data) => {
         setPhotos(data);
         setStatus("OK");
@@ -56,11 +57,7 @@ function UserPhotos() {
       viewP.push(<h2> {"Photo id: " + photo._id} </h2>);
       viewP.push(<p> Times{": " + photo.date_time} </p>);
       viewP.push(
-        <img
-          src={
-            "https://rk43xg-8081.csb.app/api/photos/photo/" + photo.file_name
-          }
-        ></img>
+        <img src={API + "/api/photos/photo/" + photo.file_name}></img>
       );
       viewP.push(viewComment(photo.comments));
       viewP.push(<br />);

@@ -1,8 +1,8 @@
-async function getData(url, cre = "omit") {
+async function getData(url) {
   try {
     const res = await fetch(url, {
       method: "GET",
-      credentials: cre,
+      credentials: "omit",
     });
     if (!res.ok) {
       throw new Error("Faild fetch");
@@ -15,11 +15,11 @@ async function getData(url, cre = "omit") {
   }
 }
 
-async function handleData(url, method, data, cre = "omit") {
+async function handleData(url, method, data) {
   try {
     const res = await fetch(url, {
       method: method,
-      credentials: cre,
+      credentials: "omit",
       headers: {
         "Content-Type": "application/json",
       },

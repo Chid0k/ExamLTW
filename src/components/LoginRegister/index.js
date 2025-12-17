@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { handleData } from "../../modelData/api";
+import { API } from "../../App.js";
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -11,18 +12,13 @@ function Login({ onLogin }) {
   function handleSubmit(e) {
     e.preventDefault();
     const data = { login_name: username, login_pass: password };
-    handleData("https://rk43xg-8081.csb.app/api/admin/login", "POST", data)
-      .then((e) => {
-        if (onLogin) {
-          onLogin(e);
-          alert("Login successful");
-          navigate("/");
-        } else {
-          alert("Login failed");
-          navigate("/login");
-        }
+    handleData(API + "/api/admin/login", "POST", data)
+      .then((user) => {
+        console.log(user);
+        onLogin(user);
+        navigate("/users");
       })
-      .catch((err) => alert("Login failed:" + err.message));
+      .catch((err) => alert("Login failed: " + err.message));
   }
 
   return (
@@ -47,7 +43,7 @@ function Login({ onLogin }) {
 function Logout({ onLogout }) {
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("https://rk43xg-8081.csb.app/api/admin/logout", {
+    fetch(API + "/api/admin/logout", {
       method: "POST",
       credentials: "include",
     })

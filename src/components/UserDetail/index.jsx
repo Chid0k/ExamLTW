@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { getData, handleData } from "../../modelData/api.js";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API } from "../../App.js";
 
 /**
  * Define UserDetail, a React component of Project 4.
@@ -22,7 +23,7 @@ function UserDetail() {
 
   useEffect(() => {
     setStatus("Loading ...");
-    getData("https://rk43xg-8081.csb.app/api/users/" + user.userId)
+    getData(API + "/api/users/" + user.userId)
       .then((data) => {
         setUserDetail(data);
         setStatus("OK");
