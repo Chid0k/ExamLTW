@@ -7,7 +7,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate
+  Navigate,
 } from "react-router-dom";
 import TopBar from "./components/TopBar";
 import UserDetail from "./components/UserDetail";
@@ -20,13 +20,6 @@ export const API = " https://rk43xg-8081.csb.app";
 const App = (props) => {
   const [user, setUser] = useState(null);
 
-  // function ProtectedRoute({ user, children }) {
-  //   if (!user) {
-  //     return <Navigate to="/login" replace />;
-  //   }
-  //   return children;
-  // }
-  // cập nhật App khi đăng nhập
   useEffect(() => {
     console.log("App useEffect - user:", user);
   }, [user]);
@@ -40,22 +33,14 @@ const App = (props) => {
           </Grid>
           <div className="main-topbar-buffer" />
           <Grid item sm={3}>
-            <Paper className="main-grid-item">
-              {user && <UserList />}
-            </Paper>
+            <Paper className="main-grid-item">{user && <UserList />}</Paper>
           </Grid>
 
           <Grid item sm={9}>
             <Paper className="main-grid-item">
               <Routes>
-                <Route
-                  path="/users/:userId"
-                  element={<UserDetail />}
-                />
-                <Route
-                  path="/photos/:userId"
-                  element={<UserPhotos />}
-                />
+                <Route path="/users/:userId" element={<UserDetail />} />
+                <Route path="/photos/:userId" element={<UserPhotos />} />
 
                 <Route path="/users" element={<UserList />} />
 
